@@ -32,7 +32,7 @@ class PipelineTest extends TestCase
         $result = $pipeline
             ->send($passable)
             ->then(function ($passable) {
-                return $passable .= '(e)';
+                return $passable . '(e)';
             })
             ->run();
 
@@ -93,7 +93,7 @@ class PipelineTest extends TestCase
             ])
             ->via('handle')
             ->then(function ($passable) {
-                return $passable .= '(e)';
+                return $passable . '(e)';
             })
             ->run();
 
@@ -121,7 +121,7 @@ class PipelineTest extends TestCase
             ])
             ->via('handle')
             ->then(function ($passable) {
-                return $passable .= '(e)';
+                return $passable . '(e)';
             })
             ->run();
 
@@ -148,7 +148,7 @@ class PipelineTest extends TestCase
             ])
             ->via('handle')
             ->then(function ($passable) {
-                return $passable .= '(e)';
+                return $passable . '(e)';
             })
             ->run();
 
@@ -167,6 +167,24 @@ class PipelineTest extends TestCase
 
         $pipeline
             ->send($passable)
+            ->through([
+                PipeOne::class,
+                PipeTwo::class
+            ])
+            ->via('handle')
+            ->run();
+    }
+
+    /**
+     * @throws PipelineException
+     */
+    public function testNoPassable(): void
+    {
+        $pipeline = new Pipeline();
+
+        $this->expectException(PipelineException::class);
+
+        $pipeline
             ->through([
                 PipeOne::class,
                 PipeTwo::class
