@@ -10,7 +10,9 @@
 
 namespace OpxCore\Pipeline\Exceptions;
 
-class PipelineException extends \Exception
+use Exception;
+
+class PipelineException extends Exception
 {
 
 }
