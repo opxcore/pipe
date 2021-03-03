@@ -1,5 +1,11 @@
 # Pipeline
 
+[![Build Status](https://travis-ci.com/opxcore/pipeline.svg?branch=main)](https://travis-ci.com/opxcore/pipeline)
+[![Coverage Status](https://coveralls.io/repos/github/opxcore/pipeline/badge.svg?branch=master)](https://coveralls.io/github/opxcore/pipeline?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/opxcore/pipeline/v/stable)](https://packagist.org/packages/opxcore/pipeline)
+[![Total Downloads](https://poser.pugx.org/opxcore/pipeline/downloads)](https://packagist.org/packages/opxcore/pipeline)
+[![License](https://poser.pugx.org/opxcore/pipeline/license)](https://packagist.org/packages/opxcore/pipeline)
+
 Pipeline is a class designed to perform chained modifications.
 
 ## Pipe
