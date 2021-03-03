@@ -114,7 +114,9 @@ class Pipeline
      */
     public function run()
     {
-        if (!isset($this->passable)) throw new PipelineException('Nothing to pass through');
+        if (!isset($this->passable)) {
+            throw new PipelineException('Nothing to pass through');
+        }
 
         // Assign endpoint call if set
         if (isset($this->endpoint) && is_callable($this->endpoint)) {
@@ -122,7 +124,7 @@ class Pipeline
                 return call_user_func($this->endpoint, $passable);
             };
         } else {
-            $run = function ($passable) {
+            $run = static function ($passable) {
                 return $passable;
             };
         }
@@ -130,7 +132,7 @@ class Pipeline
         // Skip pipes if they are empty
         if (count($this->pipes) === 0) {
             return $run
-                ? call_user_func($run, $this->passable)
+                ? $run($this->passable)
                 : $this->passable;
         }
 
@@ -151,8 +153,8 @@ class Pipeline
 
             $pipeCallable = [$this->resolvePipe($pipe), $this->method];
 
-            $run = function ($passable) use ($pipeCallable, $run, $arguments) {
-                return call_user_func($pipeCallable, $passable, $run, ...$arguments);
+            $run = static function ($passable) use ($pipeCallable, $run, $arguments) {
+                return $pipeCallable($passable, $run, ...$arguments);
             };
         }
 
@@ -173,7 +175,9 @@ class Pipeline
      */
     protected function resolvePipe($pipe)
     {
-        if (!is_string($pipe)) return $pipe;
+        if (!is_string($pipe)) {
+            return $pipe;
+        }
 
         if (!isset($this->container)) {
             throw new PipelineException('Container not set.');
